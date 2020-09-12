@@ -9,12 +9,23 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Service to manage emails
+ *
+ * @see JavaMailSender
+ */
 @Component
 public class EmailService {
 
     @Autowired
     private JavaMailSender emailSender;
 
+    /**
+     * Method to send an email to users who have not returned loans by the end date
+     *
+     * @param loan ended loan
+     * @throws MessagingException exception thrown by java mail
+     */
     public void sendReminderMail(Loan loan) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
